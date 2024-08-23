@@ -25,6 +25,6 @@ The project allows users to input job data, select scheduling algorithms, and vi
 
 ## Installation
 
-To build and run the CPU Scheduling Simulator, follow these steps:
+Comming Soon
 
  
