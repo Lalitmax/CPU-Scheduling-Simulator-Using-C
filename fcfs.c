@@ -12,38 +12,43 @@ int fcfs() {
     int *completion_time = (int *) malloc(noOfProcesses * sizeof(int));
     int *turn_around_time = (int *) malloc(noOfProcesses * sizeof(int));
     int *waiting_time = (int *) malloc(noOfProcesses * sizeof(int));
-    int *response_time = (int *) malloc(noOfProcesses * sizeof(int));
-
+ 
     // Check if memory allocation was successful
     if (arrival_time == NULL || burst_time == NULL || completion_time == NULL ||
-        turn_around_time == NULL || waiting_time == NULL || response_time == NULL) {
+        turn_around_time == NULL || waiting_time == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         return 1; // Exit with error code
     }
 
-    printf("Enter Arrival Time:\n");
-    for (int i = 0; i < noOfProcesses; i++) {
+     for (int i = 0; i < noOfProcesses; i++) {
+        printf("Enter Arrival Time and Burst Time of pid%d\n",i);
         scanf("%d", &arrival_time[i]);
-    }
-
-    printf("Enter Burst Time:\n");
-    for (int i = 0; i < noOfProcesses; i++) {
         scanf("%d", &burst_time[i]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     
+
+    completion_time[0] = burst_time[0];
+    for (int i = 1; i < noOfProcesses; i++) {
+        completion_time[i] = arrival_time[i] < completion_time[i-1] ? completion_time[i-1] + burst_time[i] : arrival_time[i] + burst_time[i];
+    }
+
+
+    // find turn around time and burst time
+    for (int i = 0; i < noOfProcesses; i++) {
+        turn_around_time[i] = completion_time[i] - arrival_time[i];
+        waiting_time[i] = turn_around_time[i] - burst_time[i];
+    }
+
+    printf("Pid    Arrival Time    Burst Time    Completion Time    TAT    WT\n");
+    for (int i = 0; i < noOfProcesses; i++) {
+        printf("%d\t\t",i);
+        printf("%d\t\t", arrival_time[i]);
+        printf("%d\t", burst_time[i]);
+        printf("%d\t\t", completion_time[i]);
+        printf("%d\t", turn_around_time[i]);
+        printf("%d\t\n", waiting_time[i]);
+    }
 
     // Free
     free(arrival_time);
@@ -51,11 +56,10 @@ int fcfs() {
     free(completion_time);
     free(turn_around_time);
     free(waiting_time);
-    free(response_time);
-
+ 
     return 0;  
 }
 
 int main() {
-
+    fcfs();
 }
