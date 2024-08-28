@@ -7,7 +7,7 @@ int fcfs() {
     printf("Enter number of processes: ");
     scanf("%d", &noOfProcesses);
 
-     int *arrival_time = (int *) malloc(noOfProcesses * sizeof(int));
+    int *arrival_time = (int *) malloc(noOfProcesses * sizeof(int));
     int *burst_time = (int *) malloc(noOfProcesses * sizeof(int));
     int *completion_time = (int *) malloc(noOfProcesses * sizeof(int));
     int *turn_around_time = (int *) malloc(noOfProcesses * sizeof(int));
@@ -20,7 +20,7 @@ int fcfs() {
         return 1; // Exit with error code
     }
 
-     for (int i = 0; i < noOfProcesses; i++) {
+    for (int i = 0; i < noOfProcesses; i++) {
         printf("Enter Arrival Time and Burst Time of pid%d\n",i);
         scanf("%d", &arrival_time[i]);
         scanf("%d", &burst_time[i]);
