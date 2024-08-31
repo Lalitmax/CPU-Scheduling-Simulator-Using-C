@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-struct Process {
+stypedef truct Process {
     int pid;        // Process ID
     int burst_time; // Burst Time
     int remaining_time; // Remaining Time
-};
+}Process;
 
- void roundRobin(struct Process proc[], int n, int quantum) {
+ void roundRobin( Process proc[], int n, int quantum) {
     int time = 0; 
     int done = 0;  
 
@@ -20,7 +20,7 @@ struct Process {
                     proc[i].remaining_time -= quantum;
                 }
                 // If remaining time is less than or equal to quantum
-                else {
+                else if{
                     time += proc[i].remaining_time;
                     proc[i].remaining_time = 0;
                     done++;
@@ -41,7 +41,7 @@ int main() {
     printf("Enter the time quantum: ");
     scanf("%d", &quantum);
 
-    struct Process proc[n];
+     Process proc[n];
 
      
     for (int i = 0; i < n; i++) {
