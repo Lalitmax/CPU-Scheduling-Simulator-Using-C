@@ -7,7 +7,7 @@ The CPU Scheduling Simulator is a project designed to demonstrate various CPU sc
 - **First-Come, First-Served (FCFS) -> done**
 - **Shortest Job First (SJF) -> done**
 - **Round-Robin (RR) -> done**
-- **Priority Scheduling -> ...**
+- **Priority Scheduling -> done**
 
 The project allows users to input job data, select scheduling algorithms, and view the scheduling results.
 
