@@ -163,15 +163,36 @@ void priorityScheduling(Process processes[], int n) {
 }
 
 
-void displayProcessDetails(Process proc[], int n) {
  
-    printf("Process\tArrivalTime\tBurstTime\tCompletionTime\tTurnaroundTime\tWaitingTime\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",
-               proc[i].pid, proc[i].arrivalTime, proc[i].burstTime, proc[i].completionTime,
-               proc[i].turnaroundTime, proc[i].waitingTime);
+
+void displayProcessDetails(Process processes[], int n) {
+
+    // Open a file for writing the output
+    FILE *outputFile = fopen("Test Cases/OutputAns.txt", "w");
+    if (outputFile == NULL) {
+        printf("Error opening file!\n");
+        return;
     }
-    printf("\n");
+
+    // Write the table header with borders
+    fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+    fprintf(outputFile, "| PID | Arrival Time | Burst Time | Completion Time | Turnaround Time | Waiting Time |\n");
+    fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+    
+    // Write each process's details in the table
+    for (int i = 0; i < n; i++) {
+        fprintf(outputFile, "| %3d | %12d | %10d | %15d | %15d | %12d |\n", 
+                processes[i].pid, 
+                processes[i].arrivalTime, 
+                processes[i].burstTime, 
+                processes[i].completionTime, 
+                processes[i].turnaroundTime, 
+                processes[i].waitingTime);
+        fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+    }
+
+    // Close the file
+    fclose(outputFile);
 }
 
 
