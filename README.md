@@ -1,4 +1,6 @@
-Here's an updated version of your **CPU Scheduling Simulator** documentation, including guidelines for other contributors and how they can run their test cases:
+Your documentation looks quite comprehensive and well-organized. However, there are a few small corrections and improvements that could make it even better:
+
+### Updated Documentation
 
 ---
 
@@ -41,7 +43,6 @@ The project allows users to input job data, select scheduling algorithms, and vi
    gcc -o test_output main.c -L. cpu_scheduling_algo.a
    ```
 
-
 ## Running the Simulator
 
 Once compiled, you can run the simulator by providing test case files as input:
@@ -50,58 +51,51 @@ Once compiled, you can run the simulator by providing test case files as input:
 ./test_output
 ```
 
-### Input File Structure In Test Cases folder
+### Input File Structure in the Test Cases Folder
 
 Each test case file should have the following format:
 ```
-AlgorithmName.txt  here you can add your which algo you want to perform
+AlgorithmName.txt  (specify which algorithm to perform)
 ```
-Example Like
+
+Example:
 
 ```
 AlgorithmName = PriorityScheduling
-
-```
-And This is particular Algo Details Like
-
-Example
-FirstComeFirstServe.txt Have
-
-```
-NoOfProcess = 4
-ArrivalTime = 0 1 5 6 <list of arrival times>
-BurstTime = 2 2 3 4 <list of burst times>
-
-
 ```
 
-RoundRobin.txt Have
+Specific Algorithm Details:
 
-```
-NoOfProcess = 4
-ArrivalTime = 0 1 2 4  
-BurstTime = 5 4 2 1  
-QuantumTime = 2 <timeSlice> (only for RR)
+- **First-Come, First-Served (FCFS) File Name Should be FirstComeFirstServe.txt**:
+  ```
+  NoOfProcess = 4
+  ArrivalTime = 0 1 5 6  (list of arrival times)
+  BurstTime = 2 2 3 4  (list of burst times)
+  ```
 
-```
-ShortestJobFirst have
+- **Round-Robin (RR) File Name Should be RoundRobin.txt**:
+  ```
+  NoOfProcess = 4
+  ArrivalTime = 0 1 2 4
+  BurstTime = 5 4 2 1
+  QuantumTime = 2  (time slice, only for RR)
+  ```
 
-```
-Mode = Preemptive
-NoOfProcess = 6
-ArrivalTime = 0 1 2 3 4 5
-BurstTime = 8 4 2 1 3 2
+- **Shortest Job First (SJF) File Name Should be ShortestJobFirst.txt**:
+  ```
+  Mode = Preemptive
+  NoOfProcess = 6
+  ArrivalTime = 0 1 2 3 4 5
+  BurstTime = 8 4 2 1 3 2
+  ```
 
-```
-And PriorityScheduling have
-
-```
-NoOfProcess = 4
-Priority = 10 20 30 40 <list of priorities> (only for Priority Scheduling)
-ArrivalTime = 0 1 2 4
-BurstTime = 5 4 2 1
-
-```
+- **Priority Scheduling File Name Should be PriorityScheduling.txt**:
+  ```
+  NoOfProcess = 4
+  Priority = 10 20 30 40  (list of priorities, only for Priority Scheduling)
+  ArrivalTime = 0 1 2 4
+  BurstTime = 5 4 2 1
+  ```
 
 ## How to Contribute
 
@@ -130,18 +124,16 @@ We welcome contributions from developers! To contribute to the project, follow t
 
    - Place your test cases in the `Test Cases/` folder.
    - Each test case should follow the **Input File Structure** mentioned earlier.
-   - ` AlgorithmName.txt` here you have to specify which algo you want to perform
-   - `Ex. FirstComeFirstServe.txt have  ,  AlgorithmName = FirstComeFirstServe`
+   - For example, `AlgorithmName.txt` should specify the algorithm to be performed.
    
-   You can run tests like this:
-
-   Compile code
+   Compile the code:
    ```bash
-      gcc -o test_output main.c -L. cpu_scheduling_algo.a
+   gcc -o test_output main.c -L. cpu_scheduling_algo.a
    ```
-   Run Code
-    ```bash
-      ./test_output
+
+   Run the code:
+   ```bash
+   ./test_output
    ```
 
 ### 6. Commit and push:
@@ -149,7 +141,7 @@ We welcome contributions from developers! To contribute to the project, follow t
    ```bash
    git add .
    git commit -m "Added feature for <your-feature>"
-   git push -u origin  main
+   git push -u origin main
    ```
 
 ### 7. Create a pull request:
@@ -158,16 +150,4 @@ We welcome contributions from developers! To contribute to the project, follow t
 ### 8. Code Review:
    The maintainers will review your PR and, once approved, it will be merged into the main branch.
 
-## Testing Guidelines
-
-To ensure the simulator works as expected, you can create test cases using the format outlined in the **Input File Structure** section. Test cases can be created to simulate different job arrival times, burst times, and scheduling algorithms.
-
-Sample test case files are located in the `TestCases/` directory. You can also write your own test cases and run the simulator using them. For example:
-
-```bash
-./test_output
-```
-
-
-Feel free to contribute and enhance this project by adding more scheduling algorithms, optimizing existing ones, or improving the UI and performance. 
-<------------------------------------------------❤️---------------------------------------------------->
+This updated documentation should help contributors understand how to get started and contribute to your project effectively.
