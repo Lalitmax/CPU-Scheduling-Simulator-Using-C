@@ -1,4 +1,4 @@
-NoofProcess = 4
-Priority = 30 40 50 20
-ArrivalTime = 2 3 4 5
-BurstTime = 4 2 3 1
+NoOfProcess = 4
+Priority = 10 20 30 40
+ArrivalTime = 0 1 2 4
+BurstTime = 5 4 2 1

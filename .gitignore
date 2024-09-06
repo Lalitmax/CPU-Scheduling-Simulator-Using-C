@@ -1,1 +1,28 @@
-.vscode
+# # Build artifacts
+# *.o
+# *.a
+# *.so
+# *.exe
+# *.out
+# *.log
+# *.dSYM/
+
+# IDE and editor files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# # System files
+# .DS_Store
+# Thumbs.db
+
+# # Backup files
+# *~
+# *.bak
+# *.tmp
+
+# # Other files
+# *.swp
+# *.swo

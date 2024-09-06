@@ -1,29 +1,10 @@
-#ifndef CPU_SCHEDULING_ALGO_H
- 
+#ifndef CPU_SCHEDULING_ALGO_H  // Begin include guard
+#define CPU_SCHEDULING_ALGO_H
 
+// Function declarations for different CPU scheduling algorithms
+void firstComeFirstServe();
+void roundrobinTime();
+void shortestJobFirst();
+void priorityScheduling();
 
-typedef struct Process {
-    int pid;
-    int priority;
-    int arrivalTime;
-    int burstTime;
-    int completionTime;
-    int turnaroundTime;
-    int waitingTime;
-} Process;
-
-
-
-
-
-void firstComeFirstServe(Process processes[], int n);
-void roundrobinTime(Process processes[], int n, int qt);
-void findSJFWithPreemptive(Process proc[], int n);
-void findSJFWithNonPreemptive(Process proc[], int n);
-void priorityScheduling(Process processes[], int n);
-
-#endif
-
-
-
- 
+#endif  // End include guard

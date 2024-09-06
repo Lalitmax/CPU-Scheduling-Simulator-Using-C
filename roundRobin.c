@@ -13,7 +13,7 @@ Node *tail = NULL;
 int N = 0;
 
 // Check if the queue is empty
-bool isEmpty() {
+bool isEmpty2() {
     return N == 0;
 }
 
@@ -22,7 +22,7 @@ void push(int data) {
     Node *newNode = (Node*) malloc(sizeof(Node));
     newNode->data = data;
     newNode->next = NULL;
-    if (isEmpty()) {
+    if (isEmpty2()) {
         head = newNode;
         tail = newNode;
     } else {
@@ -34,7 +34,7 @@ void push(int data) {
 
 // Pop a process index from the queue
 int pop() {
-    if (isEmpty()) return INT_MAX;  // Error case
+    if (isEmpty2()) return INT_MAX;  // Error case
     Node *temp = head;
     head = head->next;
     int currData = temp->data;
@@ -52,32 +52,110 @@ typedef struct Process {
     int waitingTime;
 } Process;
 
-void roundrobinTime(Process Processes[], int n, int qt) {
-    int remainingBurstTime[n];
-    
-    // Initialize remaining burst times
+void displayProcessDetailsForRoundRobin(Process processes[], int n, char algoName[]) {
+    // Open a file for writing the output
+    char fileName[100];
+    sprintf(fileName, "Test Cases/%s_output.txt", algoName);  // Generate the file path
+
+    FILE *outputFile = fopen(fileName, "w");
+    if (outputFile == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    // Write the table header with borders
+    fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+    fprintf(outputFile, "| PID | Arrival Time | Burst Time | Completion Time | Turnaround Time | Waiting Time |\n");
+    fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+
+    // Write each process's details in the table
     for (int i = 0; i < n; i++) {
-        remainingBurstTime[i] = Processes[i].burstTime;
+        fprintf(outputFile, "| %3d | %12d | %10d | %15d | %15d | %12d |\n",
+                processes[i].pid,
+                processes[i].arrivalTime,
+                processes[i].burstTime,
+                processes[i].completionTime,
+                processes[i].turnaroundTime,
+                processes[i].waitingTime);
+        fprintf(outputFile, "+-----+--------------+------------+-----------------+-----------------+--------------+\n");
+    }
+
+    // Close the file
+    fclose(outputFile);
+}
+
+void readFileForRoundRobin(const char *filename, int *numProcesses, int arrivalTime[], int burstTime[], int *QuantumTime) {
+    FILE *file = fopen(filename, "r");
+
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    // Reading the number of processes
+    fscanf(file, "NoOfProcess = %d\n", numProcesses);
+
+    // Reading the ArrivalTime
+    fscanf(file, "ArrivalTime =");
+    for (int i = 0; i < *numProcesses; i++) {
+        fscanf(file, "%d", &arrivalTime[i]);
+    }
+
+    // Reading the BurstTime
+    fscanf(file, "\nBurstTime =");
+    for (int i = 0; i < *numProcesses; i++) {
+        fscanf(file, "%d", &burstTime[i]);
+    }
+
+    // Reading the QuantumTime
+    fscanf(file, "\nQuantumTime = %d\n", QuantumTime);
+
+    fclose(file);
+}
+
+void roundrobinTime() {
+    Process *processes;
+    int NoOfProcess;
+    int QuantumTime;
+    int *arrivalTime = (int *)malloc(100 * sizeof(int));  // Assume a maximum of 100 processes for simplicity
+    int *burstTime = (int *)malloc(100 * sizeof(int));    // Adjust as needed
+    
+    readFileForRoundRobin("Test Cases/RoundRobin.txt", &NoOfProcess, arrivalTime, burstTime, &QuantumTime);
+
+    processes = (Process*) malloc(NoOfProcess * sizeof(Process));
+
+    // Initialize the process array
+    for (int i = 0; i < NoOfProcess; i++) {
+        processes[i].pid = i + 1;
+        processes[i].arrivalTime = arrivalTime[i];
+        processes[i].burstTime = burstTime[i];
+    }
+
+    int remainingBurstTime[NoOfProcess];
+
+    // Initialize remaining burst times
+    for (int i = 0; i < NoOfProcess; i++) {
+        remainingBurstTime[i] = processes[i].burstTime;
     }
 
     push(0);  // Push the first process
-    int currTime = Processes[0].arrivalTime;  // Start at the first process arrival time
+    int currTime = processes[0].arrivalTime;  // Start at the first process arrival time
     int i = 1;  // Start tracking the second process
 
-    while (!isEmpty()) {
+    while (!isEmpty2()) {
         int currProcessidx = pop();
 
         // Process execution
-        if (remainingBurstTime[currProcessidx] >= qt) {
-            remainingBurstTime[currProcessidx] -= qt;
-            currTime += qt;
+        if (remainingBurstTime[currProcessidx] >= QuantumTime) {
+            remainingBurstTime[currProcessidx] -= QuantumTime;
+            currTime += QuantumTime;
         } else {
             currTime += remainingBurstTime[currProcessidx];
             remainingBurstTime[currProcessidx] = 0;
         }
 
         // Check if new processes have arrived while the current one was executing
-        while (i < n && Processes[i].arrivalTime <= currTime) {
+        while (i < NoOfProcess && processes[i].arrivalTime <= currTime) {
             push(i);
             i++;
         }
@@ -87,21 +165,31 @@ void roundrobinTime(Process Processes[], int n, int qt) {
             push(currProcessidx);
         } else {
             // Process is finished, set completion time
-            Processes[currProcessidx].completionTime = currTime;
+            processes[currProcessidx].completionTime = currTime;
         }
 
         // If the queue is empty but there are still processes that haven't arrived,
         // move the current time to the arrival time of the next process
-        if (isEmpty() && i < n) {
-            currTime = Processes[i].arrivalTime;
+        if (isEmpty2() && i < NoOfProcess) {
+            currTime = processes[i].arrivalTime;
             push(i);
             i++;
         }
     }
 
     // Calculate turnaround time and waiting time for each process
-    for (int i = 0; i < n; i++) {
-        Processes[i].turnaroundTime = Processes[i].completionTime - Processes[i].arrivalTime;
-        Processes[i].waitingTime = Processes[i].turnaroundTime - Processes[i].burstTime;
+    for (int i = 0; i < NoOfProcess; i++) {
+        processes[i].turnaroundTime = processes[i].completionTime - processes[i].arrivalTime;
+        processes[i].waitingTime = processes[i].turnaroundTime - processes[i].burstTime;
     }
+
+    // Display process details in an output file
+    displayProcessDetailsForRoundRobin(processes, NoOfProcess, "RoundRobin");
+
+    // Free dynamically allocated memory
+    free(processes);
+    free(arrivalTime);
+    free(burstTime);
 }
+
+ 

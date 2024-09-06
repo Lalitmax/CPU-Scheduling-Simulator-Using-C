@@ -34,7 +34,6 @@ The project allows users to input job data, select scheduling algorithms, and vi
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-repo/CPUSchedulingSimulator.git
-   cd CPUSchedulingSimulator
    ```
 
 2. Compile the project:
@@ -51,28 +50,57 @@ Once compiled, you can run the simulator by providing test case files as input:
 ./test_output
 ```
 
-Replace `FirstComeFirstServe.txt` with the appropriate test case file you wish to run.
-
-### Input File Structure
+### Input File Structure In Test Cases folder
 
 Each test case file should have the following format:
+```
+AlgorithmName.txt  here you can add your which algo you want to perform
+```
+Example Like
 
 ```
-Mode = <SchedulingAlgorithm>
-QuantumTime = <timeSlice> (only for RR)
-NoOfProcess = <numberOfProcesses>
-ArrivalTime = <list of arrival times>
-BurstTime = <list of burst times>
-Priority = <list of priorities> (only for Priority Scheduling)
-```
+AlgorithmName = PriorityScheduling
 
-Example file for Round Robin scheduling:
+```
+And This is particular Algo Details Like
+
+Example
+FirstComeFirstServe.txt Have
 
 ```
 NoOfProcess = 4
-ArrivalTime = 2 3 4 5
-BurstTime = 4 2 3 1
-QuantumTime = 2
+ArrivalTime = 0 1 5 6 <list of arrival times>
+BurstTime = 2 2 3 4 <list of burst times>
+
+
+```
+
+RoundRobin.txt Have
+
+```
+NoOfProcess = 4
+ArrivalTime = 0 1 2 4  
+BurstTime = 5 4 2 1  
+QuantumTime = 2 <timeSlice> (only for RR)
+
+```
+ShortestJobFirst have
+
+```
+Mode = Preemptive
+NoOfProcess = 6
+ArrivalTime = 0 1 2 3 4 5
+BurstTime = 8 4 2 1 3 2
+
+```
+And PriorityScheduling have
+
+```
+NoOfProcess = 4
+Priority = 10 20 30 40 <list of priorities> (only for Priority Scheduling)
+ArrivalTime = 0 1 2 4
+BurstTime = 5 4 2 1
+
 ```
 
 ## How to Contribute
@@ -103,11 +131,17 @@ We welcome contributions from developers! To contribute to the project, follow t
    - Place your test cases in the `Test Cases/` folder.
    - Each test case should follow the **Input File Structure** mentioned earlier.
    - ` AlgorithmName.txt` here you have to specify which algo you want to perform
-   - `Ex. AlgorithmName.txt have  = AlgorithmName = FirstComeFirstServe`
+   - `Ex. FirstComeFirstServe.txt have  ,  AlgorithmName = FirstComeFirstServe`
    
    You can run tests like this:
+
+   Compile code
    ```bash
-   ./test_output
+      gcc -o test_output main.c -L. cpu_scheduling_algo.a
+   ```
+   Run Code
+    ```bash
+      ./test_output
    ```
 
 ### 6. Commit and push:
@@ -115,7 +149,7 @@ We welcome contributions from developers! To contribute to the project, follow t
    ```bash
    git add .
    git commit -m "Added feature for <your-feature>"
-   git push origin feature/scheduling-algorithm
+   git push -u origin  main
    ```
 
 ### 7. Create a pull request:
@@ -134,18 +168,6 @@ Sample test case files are located in the `TestCases/` directory. You can also w
 ./test_output
 ```
 
-### Sample Test Case for Priority Scheduling
 
-```
-Mode = priority
-NoOfProcess = 3
-ArrivalTime = 0 1 2
-BurstTime = 10 5 8
-Priority = 2 1 3
-```
-
-This will schedule jobs based on their priority and display the output in the console as well as write to an output file.
-
----
-
-Feel free to contribute and enhance this project by adding more scheduling algorithms, optimizing existing ones, or improving the UI and performance.
+Feel free to contribute and enhance this project by adding more scheduling algorithms, optimizing existing ones, or improving the UI and performance. 
+<------------------------------------------------❤️---------------------------------------------------->

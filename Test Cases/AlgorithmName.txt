@@ -1,1 +1,1 @@
-AlgorithmName = FirstComeFirstServe
+AlgorithmName = PriorityScheduling
