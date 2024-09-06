@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <limits.h>
 
-struct Process {
+typedef struct Process {
     int pid;
     int arrivalTime;
     int burstTime;
     int completionTime;
     int turnaroundTime;
     int waitingTime;
-};
+} Process;
 
-void findSJFWithPreemptive(struct Process proc[], int n) {
+
+void findSJFWithPreemptive(Process proc[], int n) {
     int remainingTime[n];
     for (int i = 0; i < n; i++) {
         remainingTime[i] = proc[i].burstTime;
@@ -55,7 +56,7 @@ void findSJFWithPreemptive(struct Process proc[], int n) {
     }
 }
 
-void findSJFWithNonPreemptive(struct Process proc[], int n) {
+void findSJFWithNonPreemptive(Process proc[], int n) {
     int currentTime = 0;
     int complete = 0;
     int shortest = -1;
@@ -86,48 +87,4 @@ void findSJFWithNonPreemptive(struct Process proc[], int n) {
 
         complete++;
     }
-}
-
-void displayProcessDetails(struct Process proc[], int n, int mode) {
-    if (mode == 0) {
-        printf("Mode: Non-Preemptive\n");
-    } else {
-        printf("Mode: Preemptive\n");
-    }
-    printf("Process\tArrivalTime\tBurstTime\tCompletionTime\tTurnaroundTime\tWaitingTime\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",
-               proc[i].pid, proc[i].arrivalTime, proc[i].burstTime, proc[i].completionTime,
-               proc[i].turnaroundTime, proc[i].waitingTime);
-    }
-    printf("\n");
-}
-
-int main() {
-    int n, mode;
-
-    printf("Preemptive (1) or Non-Preemptive (0):\n");
-    scanf("%d", &mode);
-
-    printf("Enter the number of processes:\n");
-    scanf("%d", &n);
-
-    struct Process proc[n];  
-
-    printf("Enter Process Details (ID, Arrival Time, Burst Time)\n");
-    for (int i = 0; i < n; i++) {
-        printf("Enter Process %d (ID, Arrival Time, Burst Time):\n", i + 1);
-        scanf("%d %d %d", &proc[i].pid, &proc[i].arrivalTime, &proc[i].burstTime);
-        proc[i].completionTime = 0;  
-    }
-
-    if (mode == 0) {
-        findSJFWithNonPreemptive(proc, n);
-    } else {
-        findSJFWithPreemptive(proc, n);
-    }
-
-    displayProcessDetails(proc, n, mode);
-
-    return 0;
 }

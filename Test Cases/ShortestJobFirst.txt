@@ -1,0 +1,4 @@
+Mode = Preemptive
+NoOfProcess = 4
+ArrivalTime = 1 2 1 4
+BurstTime = 3 4 2 4

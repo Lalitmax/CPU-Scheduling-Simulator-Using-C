@@ -1,0 +1,4 @@
+NoOfProcess = 4
+ArrivalTime = 0 1 2 4
+BurstTime = 5 4 2 1
+QuantumTime = 2
