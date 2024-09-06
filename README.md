@@ -52,9 +52,11 @@ Once compiled, you can run the simulator by providing test case files as input:
 ```
 
 #### Input File Look Like
-<img src="https://i.ibb.co/YyVg5p4/Screenshot-from-2024-09-06-23-06-49.png" alt="Screenshot 1" width="500"/>
+<img  src="https://i.ibb.co/YyVg5p4/Screenshot-from-2024-09-06-23-06-49.png">
+
 #### Output File Look Like
-<img src="https://i.ibb.co/GpmPv2G/Screenshot-from-2024-09-06-23-08-14.png" alt="Screenshot 1" width="500"/> 
+<img  src="https://i.ibb.co/GpmPv2G/Screenshot-from-2024-09-06-23-08-14.png">
+ 
 ### Input File Structure in the Test Cases Folder
 
 Each test case file should have the following format:
